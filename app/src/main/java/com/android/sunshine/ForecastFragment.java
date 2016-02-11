@@ -24,18 +24,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class ForecastFragment extends Fragment {
 
     ArrayAdapter<String> mForecastAdapter=null;
@@ -63,8 +58,8 @@ public class ForecastFragment extends Fragment {
             FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
             fetchWeatherTask.execute("Engels");
             return true;
-
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -86,7 +81,6 @@ public class ForecastFragment extends Fragment {
         mForecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecast);
         ListView forecastView = (ListView) rootView.findViewById(R.id.listview_forecast);
         forecastView.setAdapter(mForecastAdapter);
-
 
         return rootView;
     }
@@ -167,7 +161,7 @@ public class ForecastFragment extends Fragment {
             }
 
             for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Forecast entry: " + s);
+                Log.d(LOG_TAG, "Forecast entry: " + s);
             }
             return resultStrs;
 
@@ -181,15 +175,15 @@ public class ForecastFragment extends Fragment {
                     mForecastAdapter.add(dayFrostStr);
                 }
             }
-
         }
 
         @Override
         protected String[] doInBackground(String... params) {
+
             if (params.length == 0) {
                 return null;
-
             }
+
             BufferedReader reader = null;
 
             String forecatJsonStr = null;
@@ -197,7 +191,6 @@ public class ForecastFragment extends Fragment {
             HttpURLConnection urlConnection = null;
 
             try {
-
                 Uri buildUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                         .appendQueryParameter(QUERY_PARAM, params[0])
                         .appendQueryParameter(FORMAT_PARAM, MODE)
@@ -206,7 +199,7 @@ public class ForecastFragment extends Fragment {
                         .appendQueryParameter(APPID_PARAM, APPID)
                         .build();
 
-                Log.v(LOG_TAG, "URL = " + buildUri.toString());
+                Log.d(LOG_TAG, "URL = " + buildUri.toString());
 
                 URL url = new URL(buildUri.toString());
 
@@ -235,8 +228,7 @@ public class ForecastFragment extends Fragment {
 
                 forecatJsonStr = buffer.toString();
 
-
-                Log.v(LOG_TAG, "JSON = " + forecatJsonStr);
+                Log.d(LOG_TAG, "JSON = " + forecatJsonStr);
 
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
@@ -254,13 +246,7 @@ public class ForecastFragment extends Fragment {
                 }
             }
 
-            try {
-                return getWeatherDataFromJson(forecatJsonStr, days);
-            } catch (JSONException e) {
-                Log.e(LOG_TAG, e.getMessage());
-                return null;
-            }
-
+            return null;
         }
     }
 }
