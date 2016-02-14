@@ -1,12 +1,9 @@
-package com.android.sunshine.app.data;
+package com.android.sunshine.data;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
-
-import com.android.sunshine.data.WeatherContract;
-import com.android.sunshine.data.WeatherDbHelper;
 
 import java.util.HashSet;
 

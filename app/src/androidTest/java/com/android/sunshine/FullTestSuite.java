@@ -1,4 +1,4 @@
-package com.android.sunshine.app;
+package com.android.sunshine;
 
 import android.test.suitebuilder.TestSuiteBuilder;
 
