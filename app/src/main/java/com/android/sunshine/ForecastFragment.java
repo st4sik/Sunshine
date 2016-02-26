@@ -32,6 +32,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.sunshine.data.WeatherContract;
+import com.android.sunshine.sync.SunshineSyncAdapter;
 
 
 /**
@@ -164,9 +165,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void updateWeather() {
-        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
-        String location = Utility.getPreferredLocation(getActivity());
-        weatherTask.execute(location);
+        SunshineSyncAdapter.syncImmediately(getActivity());
     }
 
     @Override
